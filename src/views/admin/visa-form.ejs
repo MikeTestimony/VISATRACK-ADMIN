@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= visa ? 'Edit' : 'Add' %> Visa - VisaTrack Admin</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
       * {
         margin: 0;
@@ -137,20 +140,28 @@
     <div class="container">
       <nav>
         <ul>
-          <li><a href="/admin/dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-          <li><a href="/admin/visas"><i class="fas fa-list"></i> Manage Visas</a></li>
-          <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+          <li>
+            <a href="/admin/dashboard"
+              ><i class="fas fa-chart-line"></i> Dashboard</a
+            >
+          </li>
+          <li>
+            <a href="/admin/visas"><i class="fas fa-list"></i> Manage Visas</a>
+          </li>
+          <li>
+            <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </li>
         </ul>
       </nav>
 
       <div class="card">
         <h1><%= visa ? 'Edit Visa Requirement' : 'Add Visa Requirement' %></h1>
-        
+
         <% if (error) { %>
-          <div class="error-message">
-            <i class="fas fa-exclamation-circle"></i>
-            <div><strong>Error:</strong> <%= error %></div>
-          </div>
+        <div class="error-message">
+          <i class="fas fa-exclamation-circle"></i>
+          <div><strong>Error:</strong> <%= error %></div>
+        </div>
         <% } %>
         <form
           action="<%= visa ? '/admin/visas/' + visa._id + '?_method=PUT' : '/admin/visas' %>"

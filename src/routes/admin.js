@@ -27,12 +27,12 @@ const upload = multer({
 router.get('/dashboard', authMiddleware.isAuthenticated, adminController.renderDashboard);
 
 // Visa Requirements Management
-router.get('/visas', authMiddleware.isAuthenticated, visaController.listVisaRequirements);
-router.get('/visas/new', authMiddleware.isAuthenticated, visaController.renderVisaForm);
-router.post('/visas', authMiddleware.isAuthenticated, visaController.createVisaRequirement);
-router.get('/visas/:id/edit', authMiddleware.isAuthenticated, visaController.renderVisaForm);
-router.put('/visas/:id', authMiddleware.isAuthenticated, visaController.updateVisaRequirement);
-router.delete('/visas/:id', authMiddleware.isAuthenticated, visaController.deleteVisaRequirement);
+router.get('/visas', authMiddleware.isAuthenticated, visaController.listVisaRequirements.bind(visaController));
+router.get('/visas/new', authMiddleware.isAuthenticated, visaController.renderVisaForm.bind(visaController));
+router.post('/visas', authMiddleware.isAuthenticated, visaController.createVisaRequirement.bind(visaController));
+router.get('/visas/:id/edit', authMiddleware.isAuthenticated, visaController.renderVisaForm.bind(visaController));
+router.put('/visas/:id', authMiddleware.isAuthenticated, visaController.updateVisaRequirement.bind(visaController));
+router.delete('/visas/:id', authMiddleware.isAuthenticated, visaController.deleteVisaRequirement.bind(visaController));
 
 // CSV Upload
 router.post('/visas/upload', authMiddleware.isAuthenticated, upload.single('file'), async (req, res) => {
