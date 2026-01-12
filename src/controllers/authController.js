@@ -4,11 +4,14 @@ const User = require('../models/User');
 
 class AuthController {
     async renderRegister(req, res) {
-        return res.render('auth/register');
+        // prevent caching of auth pages which may allow browsers to retain values
+        res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+        return res.render('auth/register', { query: req.query });
     }
 
     async renderLogin(req, res) {
-        return res.render('auth/login');
+        res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+        return res.render('auth/login', { query: req.query });
     }
 
     async register(req, res) {
@@ -70,8 +73,16 @@ class AuthController {
     }
 
     async logout(req, res) {
-        res.clearCookie('authToken');
-        return res.redirect('/login');
+        // destroy server session if any and clear auth cookie
+        if (req.session) {
+            req.session.destroy(err => {
+                res.clearCookie('authToken');
+                return res.redirect('/login');
+            });
+        } else {
+            res.clearCookie('authToken');
+            return res.redirect('/login');
+        }
     }
 }
 
