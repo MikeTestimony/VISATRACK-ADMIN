@@ -37,6 +37,8 @@ app.get('/', (req, res) => res.redirect('/login'));
 app.use('/', authRoutes);
 app.use('/admin', adminRoutes);
 app.use('/api', apiRoutes);
+app.use("/", require("./routes/auth"));
+
 
 // Error handling
 app.use((err, req, res, next) => {
